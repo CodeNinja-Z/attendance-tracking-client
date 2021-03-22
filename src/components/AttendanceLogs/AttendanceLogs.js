@@ -45,6 +45,7 @@ const AttendanceLogs = () => {
     .then(response => {
       setAttendanceLogsByDate(response.data['attendance_logs_by_date'])
       setDurationsOfWorkByDate(response.data['durations_of_work_by_date'])
+      setDescription('')
     })
     .catch(error => {
       const errorObj =
