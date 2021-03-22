@@ -71,9 +71,9 @@ const App = () => {
 
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/home"]} component={AttendanceLogs} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path={["/", "/login"]} component={Login} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/home" component={AttendanceLogs} />
         </Switch>
       </div>
     </div>
