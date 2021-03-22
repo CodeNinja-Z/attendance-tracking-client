@@ -25,15 +25,21 @@ const App = () => {
     AuthService.logout()
   }
 
+  const setHomeUrl = () => currentUser ? '/home' : '/login'
+
+  const handleHomeClick = () => {
+    if (!currentUser) return alert("Please login or sign up first.")
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/"} className="navbar-brand">
+        <Link to={setHomeUrl()} className="navbar-brand" onClick={handleHomeClick}>
           Attendance Tracking
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
+            <Link to={setHomeUrl()} className="nav-link" onClick={handleHomeClick}>
               Home
             </Link>
           </li>

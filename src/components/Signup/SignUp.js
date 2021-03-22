@@ -102,7 +102,7 @@ const SignUp = (props) => {
             localStorage.setItem("user", JSON.stringify(response.data))
           }
 
-          props.history.push("/")
+          props.history.push("/home")
           window.location.reload()
         },
         (error) => {
