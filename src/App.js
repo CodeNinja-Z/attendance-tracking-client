@@ -7,7 +7,7 @@ import AuthService from "./services/authService"
 
 import Login from "./components/Login/Login"
 import SignUp from "./components/Signup/SignUp"
-// import AttendanceLogs from "./components/AttendanceLogs/AttendanceLogs"
+import AttendanceLogs from "./components/AttendanceLogs/AttendanceLogs"
 
 
 const App = () => {
@@ -71,7 +71,7 @@ const App = () => {
 
       <div className="container mt-3">
         <Switch>
-          {/* <Route exact path={["/", "/home"]} component={AttendanceLogs} /> */}
+          <Route exact path={["/", "/home"]} component={AttendanceLogs} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
         </Switch>
