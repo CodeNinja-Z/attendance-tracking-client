@@ -51,7 +51,7 @@ const EditLog = (props) => {
           />
         </td>
         <td>
-          <button onClick={handleSubmit}>Update Log</button>
+          <button onClick={handleSubmit}>Update</button>
         </td>
         <td>
           <button onClick={handleCloseForm}> X </button>

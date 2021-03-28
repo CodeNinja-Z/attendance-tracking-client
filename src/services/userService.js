@@ -1,7 +1,8 @@
 import axios from 'axios'
 import authHeader from './authHeader'
 
-const API_URL = 'https://attendance-tracking-api.herokuapp.com/api/v1/'
+// const API_URL = 'https://attendance-tracking-api.herokuapp.com/api/v1/'
+const API_URL = 'http://localhost:3000/api/v1/'
 
 axios.defaults.headers.common['Authorization'] = authHeader()
 axios.defaults.headers.common['Content-Type'] = 'application/json'

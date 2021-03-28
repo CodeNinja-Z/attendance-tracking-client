@@ -7,22 +7,26 @@ const AttendanceLogs = () => {
   const [attendanceLogsByDate, setAttendanceLogsByDate] = useState({})
   const [durationsOfWorkByDate, setDurationsOfWorkByDate] = useState({})
   const [editingLogId, setEditingLogId] = useState(null)
+  // const [message, setMessage] = useState("")
 
-  useEffect(() => {
-    UserService.getAttendanceLogsByDate()
-    .then(response => {
-      setAttendanceLogsByDate(response.data['attendance_logs_by_date'])
-      setDurationsOfWorkByDate(response.data['durations_of_work_by_date'])
-    })
-    .catch(error => {
+  const setResponseData = (response) => {
+    setAttendanceLogsByDate(response.data['attendance_logs_by_date'])
+    setDurationsOfWorkByDate(response.data['durations_of_work_by_date'])
+  }
+
+  const getAttendanceLogs = async () => {
+    try {
+      const response = await UserService.getAttendanceLogsByDate()
+      setResponseData(response)
+    } catch (error) {
       const errorObj =
         (error.response && error.response.data) ||
         error.message ||
         error.toString()
 
       console.log(errorObj)
-    })
-  }, [])
+    }
+  }
 
   const prettyDate = time => {
     let dateTime = new Date(time)
@@ -31,6 +35,8 @@ const AttendanceLogs = () => {
       minute:'2-digit'
     })
   }
+
+  useEffect(() => getAttendanceLogs(), [])
 
   const onChangeDescription = e => {
     const description = e.target.value
@@ -42,11 +48,8 @@ const AttendanceLogs = () => {
       name: e.target.value,
       description: description
     })
-    .then(response => {
-      setAttendanceLogsByDate(response.data['attendance_logs_by_date'])
-      setDurationsOfWorkByDate(response.data['durations_of_work_by_date'])
-      setDescription('')
-    })
+    .then(response => setResponseData(response))
+    .then(setDescription('')) // To do: refactor with async await
     .catch(error => {
       const errorObj =
         (error.response && error.response.data) ||
@@ -61,11 +64,8 @@ const AttendanceLogs = () => {
     let confirmed = window.confirm("Are you sure to delete?")
     if (confirmed) {
       const logId = e.target.value
-      UserService.deleteAttendanceLog(logId)
-      .then(response => {
-        setAttendanceLogsByDate(response.data['attendance_logs_by_date'])
-        setDurationsOfWorkByDate(response.data['durations_of_work_by_date'])
-      })
+      UserService.deleteAttendanceLog(logId) // To do: refactor with async await
+      .then(response => setResponseData(response))
       .catch(error => {
         const errorObj =
           (error.response && error.response.data) ||
@@ -150,12 +150,14 @@ const AttendanceLogs = () => {
                     <td>{key}</td>
                     {attendanceLogsByDate[key].map(log => {
                       if (editingLogId === log.id) {
-                        <EditLog
-                          key={log.id}
-                          log={log}
-                          onEditLog={handleEditLog}
-                          onCloseEditLog={closeEditLog}
-                        />
+                        return (
+                          <EditLog
+                            key={log.id}
+                            log={log}
+                            onEditLog={handleEditLog}
+                            onCloseEditLog={closeEditLog}
+                          />
+                        )
                       } else {
                         return(
                           <tr key={log.id}>
@@ -194,6 +196,14 @@ const AttendanceLogs = () => {
           </table>
         </div>
       </div>
+
+      {/* {message && (
+        <div className="form-group">
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        </div>
+      )} */}
     </div>
   )
 }

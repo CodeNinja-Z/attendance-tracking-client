@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const API_URL = 'https://attendance-tracking-api.herokuapp.com/api/v1/'
+// const API_URL = 'https://attendance-tracking-api.herokuapp.com/api/v1/'
+const API_URL = 'http://localhost:3000/api/v1/'
 
 const signup = (firstName, lastName, email, password, passwordConfirmation) => {
   return axios.post(API_URL + "signup", {

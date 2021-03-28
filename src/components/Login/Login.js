@@ -3,6 +3,7 @@ import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
 import { isEmail } from "validator"
+import { Redirect } from "react-router-dom"
 
 import AuthService from "../../services/authService"
 
@@ -34,6 +35,8 @@ const Login = (props) => {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
+
+  const isLoggedIn = AuthService.getCurrentUser()
 
   const onChangeEmail = (e) => {
     const email = e.target.value
@@ -74,6 +77,10 @@ const Login = (props) => {
     } else {
       setLoading(false)
     }
+  }
+
+  if (isLoggedIn) {
+    return <Redirect to="/home" />;
   }
 
   return (
